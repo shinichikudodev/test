@@ -1,0 +1,39 @@
+<script type="text/javascript">
+$(function()
+{
+   $("#city").validate({
+      rules: {
+         countrycode: {
+            required: true,
+	    pattern: /^[A-Z]{3}$/
+         },
+	 name: {
+	    required: true
+	 }
+       },
+         messages: {
+            countrycode: "Country is Required",
+            name: "Required Field"
+         }
+     });
+});
+
+</script>
+
+
+<form id="city" name="<?= $this->element->getName(); ?>" action="<?= $this->element->getAction(); ?>" method="<?= $this->element->getMethod(); ?>">
+<p>
+<b>Country</b><br />
+<?= $this->element->countrycode; ?>
+</p>
+<p>
+<b>City Name</b><br />
+<?= $this->element->name; ?>
+</p>
+
+<p>
+<?= $this->element->id; ?>
+<?= $this->element->submit; ?>
+</p>
+
+</form>

@@ -1,0 +1,23 @@
+<h2 class="noDisplay">Main Navigation</h2>
+<div class="main-nav">
+    <ul class="clearfix">
+        <li>
+            <a href="/" title="Home">Home</a>
+        </li>
+        <?php if ('admin' === $this->AuthInfo('role')): ?>
+        <li>
+            <a href="<?php echo $this->url(array('controller' => 'country','action'=> 'list'), 'default', true); ?>" title="Admin">Admin</a>
+        </li>
+        <?php endif; ?>
+	<?php if ($this->AuthInfo()->isLoggedIn()): ?>
+        <li>
+            <a href="/logout" title="Logout">Logout</a>
+        </li>
+        <?php else: ?>
+        <li>
+            <a href="/login" title="Login">Login</a>
+        </li>
+        <?php endif; ?>
+	
+    </ul>
+</div>

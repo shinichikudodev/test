@@ -1,0 +1,24 @@
+<h3>Manage Countries</h3>
+<a href="<?php echo $this->url(array('controller'=>'country', 'action' => 'add'), 'default', true); ?>">Add Country</a> | <a href="<?php echo $this->url(array('controller'=>'city', 'action' => 'add'), 'default', true); ?>">Add City</a>
+<p />
+<?php if($this->entries): ?>
+<table class="datatable">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>Name (Code)</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->entries as $entry): ?>
+    <tr>
+	<td><a href="<?php echo $this->url(array('code'=>$entry->code), 'country-code-edit', true); ?>">Edit</a> | <a href="<?php echo $this->url(array('code'=>$entry->code), 'country-code-delete', true); ?>" onclick="return confirm('Are you sure?')">Delete</a></td>
+	<td><a href="<?php echo $this->url(array('code'=>$entry->code), 'country-code-show', true); ?>"><?php echo $this->escape($entry->name) . ' (' . $this->escape($entry->Code) . ')'   ?></a></td>
+    </tr>	
+    <?php endforeach ?>
+</tbody>
+</table>    
+
+<?php else: ?>
+	No Record Found
+<?php endif; ?>

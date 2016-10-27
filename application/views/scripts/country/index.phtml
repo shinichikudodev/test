@@ -1,0 +1,22 @@
+<h3>List of Countries</h3>
+
+<?php if($this->entries): ?>
+<table class="datatable">
+    <thead>
+        <tr>
+            <th>Name (Code)</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->entries as $entry): ?>
+    <tr>
+	<td><a href="<?php echo $this->url(array('code'=>$entry->code), 'country-code-view', true); ?>"><?php echo $this->escape($entry->name) . ' (' . $this->escape($entry->Code) . ')'   ?></a></td>
+    </tr>	
+    <?php endforeach ?>
+</tbody>
+</table>    
+
+<?php else: ?>
+	No Record Found
+<?php endif; ?>
+

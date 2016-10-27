@@ -1,0 +1,65 @@
+<?php if($this->country): ?>
+	<h4><?php echo $this->country->name . ' (' . $this->countryCode . ')'; ?></h4>
+
+	<p><h5>Capital City:  <?php echo $this->escape($this->capitalCity->name)?></h6></p>
+
+    
+	<h5>List of Cities</h5>
+	<?php if($this->cityEntries): ?>
+	<table class="datatable">
+	    <thead>
+		<tr>
+		    <th>Action</th>
+		    <th>Name</th>
+		</tr>
+	    </thead>
+	    <tbody>
+	    <?php foreach ($this->cityEntries as $entry): ?>
+	    <tr>
+		<td><a href="<?php echo $this->url(array('id'=>$entry->id), 'city-id-edit', true); ?>">Edit</a> | <a href="<?php echo $this->url(array('id'=>$entry->id), 'city-id-delete', true); ?>" onclick="return confirm('Are you sure?')">Delete</a></td>	    
+		<?php if($entry->id == $this->capitalCity->id): ?>
+			<td><?php echo $this->escape($entry->name)?> (Capital City)</td>
+		<?php else: ?>
+			<td><?php echo $this->escape($entry->name)?></td>
+		<?php endif; ?>
+	    </tr>	
+	    <?php endforeach ?>
+	</tbody>
+	</table>    
+
+	<?php else: ?>
+		No Record Found
+	<?php endif; ?>
+	<p />
+
+	<h5>List of Languages</h5>
+	<?php if($this->languages): ?>
+	<table class="datatable">
+	    <thead>
+		<tr>
+		    <th>Name</th>
+		</tr>
+	    </thead>
+	    <tbody>
+	    <?php foreach ($this->languages as $entry): ?>
+	    <tr>
+		<?php if('T' == $entry->isOfficial): ?>
+			<td><?php echo $this->escape($entry->language)?> (Official)</td>
+		<?php else: ?>
+			<td><?php echo $this->escape($entry->language)?></td>
+		<?php endif; ?>
+	    </tr>	
+	    <?php endforeach ?>
+	</tbody>
+	</table>    
+
+	<?php else: ?>
+		No Record Found
+	<?php endif; ?>
+	<p />
+	
+	
+<?php else: ?>
+	No Record Found for <?php echo $this->countryCode ?>	
+	
+<?php endif; ?>

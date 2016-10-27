@@ -1,0 +1,96 @@
+<?php if($this->country): ?>
+	<h4><?php echo $this->country->name . ' (' . $this->countryCode . ')'; ?></h4>
+
+	<p><h5>Capital City:  <?php echo $this->escape($this->capitalCity->name)?></h6></p>
+
+	<div id="map"></div>
+	<input id="address" type="hidden" value="<?php echo $this->GoogleMap($this->escape($this->capitalCity->name), $this->escape($this->country->name)); ?>">
+	
+	<script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 5,
+          center: {lat: 0, lng: 0}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+          geocodeAddress(geocoder, map);
+
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC27Iz0B5dWF9LvUGKkFVjej79pzV9q_lI&callback=initMap">
+    </script>
+    
+	<h5>List of Cities</h5>
+	<?php if($this->cityEntries): ?>
+	<table class="datatable">
+	    <thead>
+		<tr>
+		    <th>Name</th>
+		</tr>
+	    </thead>
+	    <tbody>
+	    <?php foreach ($this->cityEntries as $entry): ?>
+	    <tr>
+		<?php if($entry->id == $this->capitalCity->id): ?>
+			<td><a href="<?php echo $this->url(array('id'=>$entry->id), 'city-id-view', true); ?>"><h5><?php echo $this->escape($entry->name)?> (Capital City)</h5></a></td>
+		<?php else: ?>
+			<td><a href="<?php echo $this->url(array('id'=>$entry->id), 'city-id-view', true); ?>"><?php echo $this->escape($entry->name)?></a></td>
+		<?php endif; ?>
+	    </tr>	
+	    <?php endforeach ?>
+	</tbody>
+	</table>    
+
+	<?php else: ?>
+		No Record Found
+	<?php endif; ?>
+	<p />
+
+	<h5>List of Languages</h5>
+	<?php if($this->languages): ?>
+	<table class="datatable">
+	    <thead>
+		<tr>
+		    <th>Name</th>
+		</tr>
+	    </thead>
+	    <tbody>
+	    <?php foreach ($this->languages as $entry): ?>
+	    <tr>
+		<?php if('T' == $entry->isOfficial): ?>
+			<td><h5><?php echo $this->escape($entry->language)?> (Official)</h5></td>
+		<?php else: ?>
+			<td><?php echo $this->escape($entry->language)?></td>
+		<?php endif; ?>
+	    </tr>	
+	    <?php endforeach ?>
+	</tbody>
+	</table>    
+
+	<?php else: ?>
+		No Record Found
+	<?php endif; ?>
+	<p />
+	
+	
+<?php else: ?>
+	No Record Found for <?php echo $this->countryCode ?>	
+	
+<?php endif; ?>

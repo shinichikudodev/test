@@ -1,0 +1,35 @@
+<script type="text/javascript">
+$(function()
+{
+   $("#login").validate({
+      rules: {
+         username: {
+            required: true
+         },
+	 password: {
+	    required: true
+	 }
+       },
+         messages: {
+            username: "Required Field",
+            password: "Required Field"
+         }
+     });
+});
+</script>
+
+<form id="login" name="<?= $this->element->getName(); ?>" action="<?= $this->element->getAction(); ?>" method="<?= $this->element->getMethod(); ?>">
+<p>
+<b>Username</b><br />
+<?= $this->element->username; ?>
+</p>
+<p>
+<b>Password</b><br />
+<?= $this->element->password; ?>
+</p>
+
+<p>
+<?= $this->element->submit; ?>
+</p>
+
+</form>

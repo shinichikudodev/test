@@ -1,0 +1,38 @@
+<script type="text/javascript">
+$(function()
+{
+   $("#country").validate({
+      rules: {
+         code: {
+            required: true,
+	    pattern: /^[A-Z]{3}$/
+         },
+	 name: {
+	    required: true
+	 }
+       },
+         messages: {
+            code: "Three Capital Letter",
+            name: "Required Field"
+         }
+     });
+});
+
+</script>
+-
+
+<form id="country" name="<?= $this->element->getName(); ?>" action="<?= $this->element->getAction(); ?>" method="<?= $this->element->getMethod(); ?>">
+<p>
+<b>Country Code (Three Capital Letters)</b><br />
+<?= $this->element->code; ?>
+</p>
+<p>
+<b>Country Name</b><br />
+<?= $this->element->name; ?>
+</p>
+
+<p>
+<?= $this->element->submit; ?>
+</p>
+
+</form>

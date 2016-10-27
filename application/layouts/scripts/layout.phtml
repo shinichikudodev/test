@@ -1,0 +1,55 @@
+<?= $this->doctype() ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <?= $this->headTitle(); ?>
+    
+    <?= $this->headMeta(); ?>
+    
+    <?= $this->headStyle(); ?>
+    
+    <?= $this->headLink(); ?>
+    	
+    <?= $this->jQuery(); ?>
+	
+    <?= $this->headScript()->appendScript('$(document).ready(function() {
+        setTimeout(function(){
+		$("#flash").hide();
+	}, 3000);
+    });', 
+    $type = 'text/javascript'); ?>
+</head>
+<body>
+    <h1 class="noDisplay"><?= $this->placeholder('Zend_View_Helper_HeadTitle');?></h1>
+    
+    <div id="headwrap" class="clearfix">
+        
+        <div class="right">
+           <?= $this->render('_topnav.phtml') ?>
+        </div>    
+        
+        <div id="logo" class="left">
+            OUR PLANET EARTH
+        </div>
+        
+    </div>
+    
+    <div id="contentWrap" class="clearfix">
+    <?php
+     if (count($this->messages) > 0) { 
+       printf("<div id='flash'>%s</div>", $this->messages[0]); 
+     }
+    ?>
+	    
+            <?= $this->layout()->content ?> 
+    </div>
+    
+    <div id="footer" class="clearfix">
+        <div class="left">
+        </div>
+        <div class="right">
+            &#169; 2016 HS
+        </div>
+    </div>
+</body>
+</html>
